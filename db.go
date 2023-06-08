@@ -19,6 +19,7 @@ func init() {
 		AllowNativePasswords: true,
 		ParseTime:            true,
 	}
+	fmt.Println(mysqlConfig.User, mysqlConfig.Passwd, mysqlConfig.Addr)
 
 	connection, err := sql.Open("mysql", mysqlConfig.FormatDSN())
 	if err != nil {

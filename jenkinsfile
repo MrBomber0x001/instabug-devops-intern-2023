@@ -1,0 +1,40 @@
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                script {
+                    try {
+                        docker.build('my-app', '-f Dockerfile .')
+                    } catch(err) {
+                        currentBuild.result = 'BUILD FAILURE'
+                        error(err)
+                    }
+                }
+            }
+        }
+        stage('Test') {
+            steps {
+                script {
+                    try {
+                        docker.image('my-app').inside {
+                            sh 'go test ./...'
+                        }
+                    } catch (err) {
+                        currentBuild.result = 'FAILURE'
+                        error(err)
+                    }
+                }
+            }
+        }
+        stage('Push') {
+            steps {
+                script {
+                    docker.withRegistry('https://registry.dockerhub.com', 'docker-hub-credential-id') {
+                        docker.image('my-app').push("${env.BUILD_NUMBER}")
+                    }
+                }
+            }
+        }
+    }
+}

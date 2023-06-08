@@ -16,7 +16,12 @@ And exposes itself on port 9090:
 
 ## Tasks
 
-* [ ] Upgrade Go to 20
+* [in] Upgrade Go to 20
+* [ ] Run the application locally without docker first!
 * [ ] Dockerfile
 * [ ] Docker compose
-* [ ]
+
+* [ ] Jenkins with Building Go project [build the app using dockerfile]
+  * [ ] Installing and building tools
+    * [x] creating the docker hub credentials for docker inside jenkins
+* [ ] install mysql on ubuntu
