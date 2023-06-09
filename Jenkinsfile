@@ -4,12 +4,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    try {
-                        docker.build('instabug-go', '-f Dockerfile .')
-                    } catch (err) {
-                        currentBuild.result = 'FAILURE'
-                        error(err)
-                    }
+                    docker.build('instabug-go', '-f Dockerfile .')
                 }
             }
         }
@@ -31,7 +26,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.dockerhub.com', 'docker-hub-repo') {
-                        docker.image('my-app').push("${env.BUILD_NUMBER}")
+                        docker.image('instabug-go').push("${env.BUILD_NUMBER}")
                     }
                 }
             }
