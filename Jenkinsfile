@@ -23,8 +23,12 @@ pipeline {
         stage('Push') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.dockerhub.com', 'dockerhub') {
-                        docker.image('instabug-go').push("${env.BUILD_NUMBER}")
+                    try {
+                        docker.withRegistry('https://registry.dockerhub.com', 'dockerhub') {
+                            docker.image('instabug-go').push("${env.BUILD_NUMBER}")
+                        }
+                    } catch (err) {
+                        error(err)
                     }
                 }
             }
