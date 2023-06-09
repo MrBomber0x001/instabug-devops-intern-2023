@@ -25,3 +25,5 @@ And exposes itself on port 9090:
   * [x] Installing and building tools
   * [x] creating the docker hub credentials for docker inside jenkins
 * [ ] install mysql on ubuntu
+
+- [ ]
