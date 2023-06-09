@@ -16,29 +16,12 @@ And exposes itself on port 9090:
 
 ## Tasks
 
-* [in] Upgrade Go to 20
+* [x] Upgrade Go to 20
 * [ ] Run the application locally without docker first!
-* [ ] Dockerfile
-* [ ] Docker compose
+* [x] Dockerfile
+* [x] Docker compose
 
 * [ ] Jenkins with Building Go project [build the app using dockerfile]
-  * [ ] Installing and building tools
-    * [x] creating the docker hub credentials for docker inside jenkins
+  * [x] Installing and building tools
+  * [x] creating the docker hub credentials for docker inside jenkins
 * [ ] install mysql on ubuntu
-
-```json
-stage('Test') {
-            steps {
-                script {
-                    try {
-                        docker.image('instabug-go').inside {
-                            sh 'go test ./...'
-                        }
-                    } catch (err) {
-                        currentBuild.result = 'FAILURE'
-                        error(err)
-                    }
-                }
-            }
-        }
-```
