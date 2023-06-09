@@ -1,4 +1,3 @@
-# Use a lightweight base image
 FROM golang:1.16-alpine
 
 # Set the working directory to /app
