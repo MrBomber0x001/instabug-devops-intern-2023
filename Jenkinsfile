@@ -17,7 +17,7 @@ pipeline {
             steps {
                 script {
                     echo "Attempting to log in to DockerHub"
-                    sh 'docker login -u yousefmeska -p dckr_pat_HTDdCiQS7UY99yPnKO3_8MqeyW8'
+                    sh 'docker login -u yousefmeska -p ${DOCKER_HUB_CREDENTIALS_PSW}'
                 }
             }
         }
