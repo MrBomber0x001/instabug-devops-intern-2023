@@ -8,7 +8,7 @@ pipeline {
             steps {
                 script {
                     // dockerImage = docker.build('instabug-go', '-f Dockerfile .')
-                    sh 'docker build -t yousefmeska/instabug-go .'
+                    sh 'docker build -t yousefmeska/instabug-go:latest .'
                 }
             }
         }
@@ -17,14 +17,14 @@ pipeline {
             steps {
                 script {
                     echo "Attempting to log in to DockerHub"
-                    sh 'docker login -u yousefmeska -p ${DOCKER_HUB_CREDENTIALS_PSW}'
+                    sh 'docker login -u ${DOCKER_HUB_CREDENTIALS_USER} -p ${DOCKER_HUB_CREDENTIALS_PSW}'
                 }
             }
         }
         stage('Push to Docker repo') {
             steps {
                 script {
-                    sh 'docker push yousefmeska/instabug-go'
+                    sh 'docker push yousefmeska/instabug-go:latest'
                 }
             }
         }
