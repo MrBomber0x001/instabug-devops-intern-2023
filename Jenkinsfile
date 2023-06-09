@@ -8,7 +8,12 @@ pipeline {
             steps {
                 script {
                     // dockerImage = docker.build('instabug-go', '-f Dockerfile .')
-                    sh 'docker build -t yousefmeska/instabug-go:latest .'
+                    try { 
+                        sh 'docker build -t yousefmeska/instabug-go:latest .'
+                    } catch (Exception err){
+                        currentBuild.result = 'FAILURE'
+                        error(err)
+                    }
                 }
             }
         }
