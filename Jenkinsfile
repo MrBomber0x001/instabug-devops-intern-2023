@@ -15,7 +15,7 @@ pipeline {
         stage('Login_Push') {
             steps {
                 script {
-                    sh "ls"
+                    sh "echo 'welcome'"
                 }
             }
         }
