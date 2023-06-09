@@ -66,6 +66,9 @@ docker pull mysql:latest
 docker-compose up -e MYSQL_=example_password -e POSTGRES_USER=example_user -e POSTGRES_DB=example_db
 ```
 
+```sh
+docker-compose up 
+
 ## Jenkins
 
 on ubuntu
