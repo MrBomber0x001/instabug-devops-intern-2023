@@ -3,7 +3,9 @@
 
 ### Dockerfile
 
-I've choosed alpine-16 specically because it has almost zero vulenerabilites.
+I've choosed alpine-16 as it lightweight and this version specifically is secure as I've searched Dockerhub for most secure alpine version it has almost zero vulenerabilites.
+
+The Dockerfile is based on Multi-stage build strategy
 
 ```sh
 # Use a lightweight base image

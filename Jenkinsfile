@@ -13,11 +13,17 @@ pipeline {
             }
         }
 
-        stage('Login_Push') {
+        stage('Login') {
             steps {
                 script {
-                    echo "Logging"
+                    echo "Attempting to log in to DockerHub"
                     sh 'docker login -u yousefmeska -p dckr_pat_HTDdCiQS7UY99yPnKO3_8MqeyW8'
+                }
+            }
+        }
+        stage('Push to Docker repo') {
+            steps {
+                script {
                     sh 'docker push yousefmeska/instabug-go'
                 }
             }
