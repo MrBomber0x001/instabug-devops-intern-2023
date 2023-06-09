@@ -15,6 +15,7 @@ pipeline {
         stage('Login_Push') {
             steps {
                 script {
+                    echo "Logging"
                     sh 'docker login -u yousefmeska -p dckr_pat_HTDdCiQS7UY99yPnKO3_8MqeyW8'
                     
                 }
