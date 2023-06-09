@@ -22,7 +22,7 @@ pipeline {
         stage('Login') {
             steps {
                 script {
-                    echo "Attempting to log in to DockerHub"
+                    echo "Attempting to log in to DockerHub - testing"
                     sh 'docker login -u ${DOCKER_HUB_CREDENTIALS_USR} -p ${DOCKER_HUB_CREDENTIALS_PSW}'
                 }
             }
