@@ -3,7 +3,9 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"log"
 	"os"
+	"time"
 
 	mysqldriver "github.com/go-sql-driver/mysql"
 )
@@ -18,15 +20,19 @@ func init() {
 		Addr:                 fmt.Sprintf("%s:%s", os.Getenv("MYSQL_HOST"), os.Getenv("MYSQL_PORT")),
 		AllowNativePasswords: true,
 		ParseTime:            true,
+		Timeout:              5000 * time.Millisecond,
 	}
+	fmt.Println(mysqlConfig.User, mysqlConfig.Passwd, mysqlConfig.Addr)
 
 	connection, err := sql.Open("mysql", mysqlConfig.FormatDSN())
 	if err != nil {
+		log.Fatal(err.Error())
 		panic(err)
 	}
 
 	_, err = connection.Exec(`CREATE DATABASE IF NOT EXISTS internship`)
 	if err != nil {
+		log.Fatal(err.Error())
 		panic(err)
 	}
 
