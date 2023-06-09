@@ -7,7 +7,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    dockerImage = docker.build('instabug-go', '-f Dockerfile .')
+                    dockerImage = docker.build('instabug-go:latest', '-f Dockerfile .')
                 }
             }
         }
