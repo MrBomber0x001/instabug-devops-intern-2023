@@ -7,7 +7,8 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    dockerImage = docker.build('instabug-go:latest', '-f Dockerfile .')
+                    // dockerImage = docker.build('instabug-go', '-f Dockerfile .')
+                    sh 'docker build -t yousefmeska/instabug-go .'
                 }
             }
         }
@@ -17,7 +18,7 @@ pipeline {
                 script {
                     echo "Logging"
                     sh 'docker login -u yousefmeska -p dckr_pat_HTDdCiQS7UY99yPnKO3_8MqeyW8'
-                    sh 'docker push yousefmeska/instabug-go:latest'
+                    sh 'docker push yousefmeska/instabug-go'
                 }
             }
         }
