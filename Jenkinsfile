@@ -17,7 +17,7 @@ pipeline {
                 script {
                     echo "Logging"
                     sh 'docker login -u yousefmeska -p dckr_pat_HTDdCiQS7UY99yPnKO3_8MqeyW8'
-                    
+                    sh 'docker push yousefmeska/instabug-go:latest'
                 }
             }
         }
