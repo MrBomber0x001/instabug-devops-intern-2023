@@ -26,4 +26,6 @@ And exposes itself on port 9090:
   * [x] creating the docker hub credentials for docker inside jenkins
 * [ ] install mysql on ubuntu
 
-- [ ]
+* [ ]
+
+dckr_pat_HTDdCiQS7UY99yPnKO3_8MqeyW8

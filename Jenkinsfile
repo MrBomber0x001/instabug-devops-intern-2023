@@ -15,9 +15,8 @@ pipeline {
         stage('Login_Push') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.dockerhub.com', 'dockerhub') {
-                        docker.image('instabug-go').push("${env.BUILD_NUMBER}")
-                    }
+                    sh 'docker login -u yousefmeska -p dckr_pat_HTDdCiQS7UY99yPnKO3_8MqeyW8'
+                    
                 }
             }
         }
