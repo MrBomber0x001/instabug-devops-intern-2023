@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        DOCKER_HUB_CREDENTIALS = credentials('dockerhub')
+    }
     stages {
         stage('Build') {
             steps {
@@ -8,11 +11,17 @@ pipeline {
                 }
             }
         }
+
+        stage('Login') {
+            steps {
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+            }
+        }
         
         stage('Push') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.dockerhub.com', 'docker-hub-repo') {
+                    docker.withRegistry('https://registry.dockerhub.com', 'dockerhub') {
                         docker.image('instabug-go').push("${env.BUILD_NUMBER}")
                     }
                 }
