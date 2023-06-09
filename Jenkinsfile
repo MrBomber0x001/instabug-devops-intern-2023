@@ -12,26 +12,11 @@ pipeline {
             }
         }
 
-        stage('Login') {
+        stage('Login_Push') {
             steps {
                 script {
-                    bat 'echo $DOCKER_HUB_CREDENTIALS_PSW | docker login -u $DOCKER_HUB_CREDENTIALS_PSW --password-stdin'
+                    sh "welcome"
                 }
             }
         }
-        
-        stage('Push') {
-            steps {
-                script {
-                    try {
-                        docker.withRegistry('https://registry.dockerhub.com', 'dockerhub') {
-                            docker.image('instabug-go').push("${env.BUILD_NUMBER}")
-                        }
-                    } catch (err) {
-                        error(err)
-                    }
-                }
-            }
-        }
-    }
 }
