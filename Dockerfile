@@ -14,7 +14,7 @@ FROM alpine:latest
 RUN apk --no-cache add ca-certificates
 WORKDIR /root/
 COPY --from=0 /app/app .
-
+COPY wait-for.sh .
 
 EXPOSE 9090
 # Set the container command

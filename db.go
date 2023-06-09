@@ -20,15 +20,18 @@ func init() {
 		Addr:                 fmt.Sprintf("%s:%s", os.Getenv("MYSQL_HOST"), os.Getenv("MYSQL_PORT")),
 		AllowNativePasswords: true,
 		ParseTime:            true,
-		Timeout:              5000 * time.Millisecond,
+		Timeout:              10000 * time.Millisecond,
 	}
 	fmt.Println(mysqlConfig.User, mysqlConfig.Passwd, mysqlConfig.Addr)
+	fmt.Println(mysqlConfig.FormatDSN())
 
 	connection, err := sql.Open("mysql", mysqlConfig.FormatDSN())
 	if err != nil {
 		log.Fatal(err.Error())
 		panic(err)
 	}
+
+	// defer connection.Close()
 
 	_, err = connection.Exec(`CREATE DATABASE IF NOT EXISTS internship`)
 	if err != nil {
@@ -42,6 +45,7 @@ func init() {
 		panic(err)
 	}
 
+	// what's the purpose of this ?
 	connection, err = sql.Open("mysql", mysqlConfig.FormatDSN())
 	if err != nil {
 		panic(err)
