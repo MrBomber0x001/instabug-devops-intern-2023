@@ -17,7 +17,7 @@ pipeline {
             steps {
                 script {
                     echo "Attempting to log in to DockerHub"
-                    sh 'docker login -u ${DOCKER_HUB_CREDENTIALS_USER} -p ${DOCKER_HUB_CREDENTIALS_PSW}'
+                    sh 'docker login -u ${DOCKER_HUB_CREDENTIALS_USR} -p ${DOCKER_HUB_CREDENTIALS_PSW}'
                 }
             }
         }
