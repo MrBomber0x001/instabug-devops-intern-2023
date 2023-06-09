@@ -13,6 +13,7 @@ pipeline {
                     } catch (Exception err){
                         currentBuild.result = 'FAILURE'
                         error(err)
+                        sh 'exit 1'
                     }
                 }
             }
