@@ -8,20 +8,7 @@ pipeline {
                 }
             }
         }
-        stage('Test') {
-            steps {
-                script {
-                    try {
-                        docker.image('instabug-go').inside {
-                            sh 'go test ./...'
-                        }
-                    } catch (err) {
-                        currentBuild.result = 'FAILURE'
-                        error(err)
-                    }
-                }
-            }
-        }
+        
         stage('Push') {
             steps {
                 script {

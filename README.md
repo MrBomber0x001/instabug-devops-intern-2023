@@ -25,3 +25,20 @@ And exposes itself on port 9090:
   * [ ] Installing and building tools
     * [x] creating the docker hub credentials for docker inside jenkins
 * [ ] install mysql on ubuntu
+
+```json
+stage('Test') {
+            steps {
+                script {
+                    try {
+                        docker.image('instabug-go').inside {
+                            sh 'go test ./...'
+                        }
+                    } catch (err) {
+                        currentBuild.result = 'FAILURE'
+                        error(err)
+                    }
+                }
+            }
+        }
+```
