@@ -9,6 +9,7 @@ pipeline {
                 script {
                     // dockerImage = docker.build('instabug-go', '-f Dockerfile .')
                     try { 
+                        echo "building the docker image"
                         sh 'docker build -t yousefmeska/instabug-go:latest .'
                     } catch (Exception err){
                         currentBuild.result = 'FAILURE'
@@ -22,7 +23,7 @@ pipeline {
         stage('Login') {
             steps {
                 script {
-                    echo "Attempting to log in to DockerHub - testing"
+                    echo "Attempting to log in to DockerHub"
                     sh 'docker login -u ${DOCKER_HUB_CREDENTIALS_USR} -p ${DOCKER_HUB_CREDENTIALS_PSW}'
                 }
             }
@@ -30,6 +31,7 @@ pipeline {
         stage('Push to Docker repo') {
             steps {
                 script {
+                    echo "Publishing to docker repo"
                     sh 'docker push yousefmeska/instabug-go:latest'
                 }
             }
