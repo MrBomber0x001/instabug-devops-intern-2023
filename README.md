@@ -45,6 +45,11 @@ And exposes itself on port 9090:
 
 The bug was that 'GET' request returns empty array of objects like `[{}, {}, {}]` even the `POST` request returned `OK`
 
+```sh
+curl http://localhost:9090
+[{}, {}, {}]
+```
+
 ![](./docs/screenshots/Screenshot%202023-06-11%20061635.png)
 
 However the data is actually stored on the db successfully
