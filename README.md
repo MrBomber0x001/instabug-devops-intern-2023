@@ -18,6 +18,32 @@ And exposes itself on port 9090:
 
 -----
 
+## Tools used
+
+* `Docker`
+* `Kubernetes`
+* `Go`
+* `Minikube`
+* `Helm`
+* `wait-for`
+* `Jenkins`
+* `ArgoCD`
+
+## Projet structure
+
+```
+- docs # contains documentation files
+- helm # helm charts
+- compose # contain docker compose related files
+- manifests # contain kubernetes files
+```
+
+## Screenshots of the application workings
+
+![](./docs/screenshots/Screenshot%202023-06-11%20061635.png)
+
+---
+
 I've been presented with a Document containing a `lightweight go web server` that should be dockerized and pipelined through Jenkins
 
 First thing I've encoutered was reading the source code and understand it as much as I can to have a context of what I am about to work with.
@@ -191,8 +217,6 @@ And here's the Docker repo after pushing the image
 
 ## Helm
 
-Installing Helm charts
-
 ## Bonus points
 
 ### Security Measures and Analysis
@@ -213,6 +237,10 @@ So in each one of the above issues I've used the suitable security best practice
 running synk tests to spot any vulenerabilites or potential security issues
 
 ### The Bug
+
+The bug was that 'GET' request returns empty array of objects like `[{}, {}, {}]` even the `POST` request returned `OK`
+
+![](./docs/screenshots/Screenshot%202023-06-11%20061635.png)
 
 I've encountered an issue when trying to run `docker compose` that the server is started before the db was actually ready,
 one of the solutions I've though of was
@@ -251,3 +279,5 @@ concept.
   * [x] Run Code and Container security analysis using `Synk`
   * [x] Added Additional stage in the Jenkins Pipeline before pushing to Docker repo
 * [x] Fix a bug in the code that would appear when you test the api
+
+'mysql'@'10.244.0.8'

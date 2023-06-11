@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: instabug-goapi
+  name: instabug-goapi
+  namespace: app-ns
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: instabug-goapi
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: instabug-goapi
+    spec:
+      containers:
+        - image: yousefmeska/instabug-go:latest
+          name: instabug-go
+          resources: {}
+          env:
+            - name: MYSQL_PASS
+              valueFrom:
+                secretKeyRef:
+                  key: rootpassword
+                  name: mysql-password
+            - name: MYSQL_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  key: dbname
+                  name: app-cm
+            - name: MYSQL_USER
+              valueFrom:
+                configMapKeyRef:
+                  key: dbuser
+                  name: app-cm
+            - name: SERVER_PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: serverport
+                  name: app-cm
+            - name: MYSQL_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: dbhost
+                  name: app-cm
+            - name: MYSQL_PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: dbport
+                  name: app-cm
+status: {}
