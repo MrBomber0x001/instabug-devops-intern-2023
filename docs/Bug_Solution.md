@@ -1,6 +1,13 @@
 ## The Bug
 
-The bug was that 'GET' request returns empty array of objects like `[{}, {}, {}]` even the `POST` request returned `OK`
+The bug was that 'GET' request returns empty array of objects like `[{}, {}, {}]`
+
+```sh
+curl http://localhost:9090
+[{}, {}, {}]
+```
+
+ even though the `POST` request returned `OK`.
 
 ![](./screenshots/Screenshot%202023-06-11%20061635.png)
 
@@ -22,7 +29,7 @@ And It worked 🎉
 
 ![](./screenshots/Screenshot%202023-06-11%20082139.png)
 
-Another issue I've encountered was issue when trying to run `docker compose` that the server is started before the db was actually ready,
+Another issue (Not a bug) I've encountered was when trying to run `docker compose` that the server is started before the db was actually ready,
 one of the solutions I've though of was
 
 1. add a timeout to wait for the connection to be ready, although it didn't work very well 😥
