@@ -2,20 +2,17 @@
 
 I've been presented with a Document containing a `lightweight go web server` that should be dockerized and pipelined through Jenkins
 
-First thing I've encoutered was reading the source code and understand it as much as I can to have a context of what I am about to work with.
+First thing I've encoutered was reading the source code and understand it as much as I could to have a context of what I am about to work on.
 
-Then, I've begin to dockerize the application by choosing the most secure and lightweight alpine image
+Then, I began to dockerize the application by choosing a secure and lightweight alpine image to base official go image on.
 
 ## Docker
 
 ### Dockerfile
-
-I've choosed alpine-16 as it's a lightweight distri and this version specifically is secure as I've searched Dockerhub for most secure alpine version it has almost zero vulenerabilites.
-
-The Dockerfile is based on Multi-stage build strategy
+The Dockerfile is based on a `multi-stage build` strategy for better optimization 
 
 ```sh
-FROM golang:1.16-alpine
+FROM golang:1.20.4-alpine3.16
 
 # Set the working directory to /app
 WORKDIR /app
