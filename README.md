@@ -33,10 +33,44 @@ And exposes itself on port 9090:
 
 ```
 - docs # contains documentation files
+  - bug_solution.md
+  - documentation.md
+  - screenshots
 - helm # helm charts
 - compose # contain docker compose related files
 - manifests # contain kubernetes files
 ```
+
+## The Bug
+
+The bug was that 'GET' request returns empty array of objects like `[{}, {}, {}]` even the `POST` request returned `OK`
+
+![](./docs/screenshots/Screenshot%202023-06-11%20061635.png)
+
+However the data is actually stored on the db successfully
+
+![](./docs/screenshots/Screenshot%202023-06-11%20074536.png)
+
+The problem was that the struct members are 'lower-cased' which can't be used in the API response.
+I've solved it by capitalizing the first Letter of each member
+
+```go
+type row struct {
+ ID        int64     `json:"id"`
+ CreatedAt time.Time `json:"created_at"`
+}
+```
+
+And It worked 🎉
+
+![](./docs/screenshots/Screenshot%202023-06-11%20082139.png)
+
+Another issue (not a bug) I've encountered was when trying to run `docker compose` that the server is started before the db was actually ready (not the container itself is up and running, but mysql db is ready for connections).
+
+One of the solutions I though of was
+
+1. add a timeout to wait for the connection to be ready, although it didn't go very well 😥
+2. to use a `wait-for` script, to ensure that the web server won't start unless the db is fully ready! and it did work 🎉
 
 ## Screenshots of the application workings
 
@@ -48,7 +82,7 @@ I've been presented with a Document containing a `lightweight go web server` tha
 
 First thing I've encoutered was reading the source code and understand it as much as I can to have a context of what I am about to work with.
 
-Then, I've begin to dockerize the application by choosing the most secure and lightweight alpine image
+Then, I've begin to dockerize the application by choosing a secure and lightweight alpine image
 
 ## Docker
 
@@ -226,45 +260,14 @@ To achieve a good security practices I've listed most of the security issues tha
 * The Dockerfile contains an image that has some potential vulenerabilites
 * Credentials are not stored properly in the Docker Compose of Dockerfile
 * The pipeline is leaking sensitive information
-* The code itself could have code vulenerabilites.
+* Credentials passed to Helm templates are not encoded
 
 So in each one of the above issues I've used the suitable security best practice as follows
 
 * [x] Used lightweight and Almost zero-vulen image in the `Dockerfile`
 * [x] Run Synk CLI test to see if there's container-level security issues
 * [x] Stored credentials properly by storing them as environment variable in `.env` and inside Jenkins itself.
-
-running synk tests to spot any vulenerabilites or potential security issues
-
-### The Bug
-
-The bug was that 'GET' request returns empty array of objects like `[{}, {}, {}]` even the `POST` request returned `OK`
-
-![](./docs/screenshots/Screenshot%202023-06-11%20061635.png)
-
-However the data is actually stored on the db successfully
-
-![](./docs/screenshots/Screenshot%202023-06-11%20074536.png)
-
-The problem was that the struct members are 'lower-cased' which can't be used in the API response.
-I've solved it by capitalizing the first Letter of each member
-
-```go
-type row struct {
- ID        int64     `json:"id"`
- CreatedAt time.Time `json:"created_at"`
-}
-```
-
-And It worked 🎉
-
-![](./docs/screenshots/Screenshot%202023-06-11%20082139.png)
-
-Another issue I've encountered was issue when trying to run `docker compose` that the server is started before the db was actually ready,
-one of the solutions I've though of was
-
-1. add a timeout to wait for the connection to be ready, although it didn't work very well 😥
-2. to use `wait-for` script, to ensure that the web server won't start unless the db is fully ready! and it did work 🎉
+* [x] Encoded credentials passed to Helm as `base64`
 
 ### ArgoCD with Helm
 
@@ -285,11 +288,8 @@ one of the solutions I've though of was
     * [x] use credentials as environment variables for security best practices
     * [x] build status
 
-* [ ] Helm with K8S
-
-### Bonus points
-
-* [ ] Add autoscaling manifest for number of replicas.
+* [ ] Helm
+  * [ ] Add autoscaling manifest for number of replicas.
 * [ ] Add argocd app that points to helm manifests to apply gitops
 concept.
 * [x] Secure your containers as much as you can.
@@ -297,5 +297,3 @@ concept.
   * [x] Run Code and Container security analysis using `Synk`
   * [x] Added Additional stage in the Jenkins Pipeline before pushing to Docker repo
 * [x] Fix a bug in the code that would appear when you test the api
-
-'mysql'@'10.244.0.8'

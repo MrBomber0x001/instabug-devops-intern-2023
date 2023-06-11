@@ -2,11 +2,11 @@
 
 The bug was that 'GET' request returns empty array of objects like `[{}, {}, {}]` even the `POST` request returned `OK`
 
-![](./docs/screenshots/Screenshot%202023-06-11%20061635.png)
+![](./screenshots/Screenshot%202023-06-11%20061635.png)
 
 However the data is actually stored on the db successfully
 
-![](./docs/screenshots/Screenshot%202023-06-11%20074536.png)
+![](./screenshots/Screenshot%202023-06-11%20074536.png)
 
 The problem was that the struct members are 'lower-cased' which can't be used in the API response.
 I've solved it by capitalizing the first Letter of each member
@@ -20,7 +20,7 @@ type row struct {
 
 And It worked 🎉
 
-![](./docs/screenshots/Screenshot%202023-06-11%20082139.png)
+![](./screenshots/Screenshot%202023-06-11%20082139.png)
 
 Another issue I've encountered was issue when trying to run `docker compose` that the server is started before the db was actually ready,
 one of the solutions I've though of was
