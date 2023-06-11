@@ -15,8 +15,8 @@ type handler struct {
 }
 
 type row struct {
-	id        int64
-	createdAt time.Time
+	ID        int64     `json:"id"`
+	CreatedAt time.Time `json:"created_at"`
 }
 
 func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -27,19 +27,21 @@ func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	switch r.Method {
 	case "GET":
-		rs, err := _connection.Query(`SELECT id,created_at FROM stuff`)
+		rs, err := _connection.Query("SELECT id, created_at FROM stuff")
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte("Internal Server Error"))
 			return
 		}
 
+		defer rs.Close()
+
 		var ret []row
 		for rs.Next() {
 			cur := row{}
 			err = rs.Scan(
-				&cur.id,
-				&cur.createdAt,
+				&cur.ID,
+				&cur.CreatedAt,
 			)
 
 			if err != nil {
@@ -57,10 +59,12 @@ func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			w.Write([]byte("Internal Server Error"))
 			return
 		}
+
 		_, err = w.Write(bs)
 		if err != nil {
 			panic(err)
 		}
+
 	case "POST":
 		_, err := _connection.Exec("INSERT INTO stuff (created_at) VALUES (NOW())")
 		if err != nil {
