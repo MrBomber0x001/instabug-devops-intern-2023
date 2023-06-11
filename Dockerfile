@@ -1,4 +1,4 @@
-FROM golang:1.16-alpine
+FROM golang:1.20.4-alpine3.16
 
 # Set the working directory to /app
 WORKDIR /app
