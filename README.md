@@ -18,6 +18,14 @@ And exposes itself on port 9090:
 
 ## PoC
 
+**Documentation files**:
+
+* [Bug_Solution](https://github.com/MrBomber0x001/instabug-intern-2023/blob/main/docs/Bug_Solution.md)
+* [Documentation](https://github.com/MrBomber0x001/instabug-intern-2023/blob/main/docs/Documentation.md)
+* [argoCD](https://github.com/MrBomber0x001/instabug-intern-2023/blob/main/docs/ArgoCD.md)
+* [Helm](https://github.com/MrBomber0x001/instabug-intern-2023/blob/main/docs/Helm.md)
+* [Jenkins](https://github.com/MrBomber0x001/instabug-intern-2023/blob/main/docs/jenkins.md)
+
 Bug Solution and Application Status ✅ <br/>
 ![](./docs/screenshots/bug_solution.png)
 
@@ -32,14 +40,6 @@ Jenkins Pipeline ✅ <br/>
 
 Image Pushed to Docker Registery ✅ <br/>
 ![](./docs/screenshots/docker_registery.png)
-
-**Documentation files**:
-
-* [Bug_Solution](https://github.com/MrBomber0x001/instabug-intern-2023/blob/main/docs/Bug_Solution.md)
-* [Documentation](https://github.com/MrBomber0x001/instabug-intern-2023/blob/main/docs/Documentation.md)
-* [argoCD](https://github.com/MrBomber0x001/instabug-intern-2023/blob/main/docs/ArgoCD.md)
-* [Helm](https://github.com/MrBomber0x001/instabug-intern-2023/blob/main/docs/Helm.md)
-* [Jenkins](https://github.com/MrBomber0x001/instabug-intern-2023/blob/main/docs/jenkins.md)
 
 ## Architecture Overview
 
