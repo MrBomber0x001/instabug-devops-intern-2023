@@ -1,0 +1,11 @@
+architecture: replication
+secondary:
+  replicaCount: 3
+persistence:
+  storageClass: "standard"
+auth:
+  rootPassword:
+  database: "internship"
+  username: "mysql"
+  password: "password"
+  existingSecret:

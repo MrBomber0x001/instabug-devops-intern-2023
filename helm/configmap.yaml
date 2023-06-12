@@ -1,0 +1,14 @@
+apiVersion: v1
+data:
+  dbhost: mysql-primary.default.svc.cluster.local
+  dbname: internship
+  dbport: "3306"
+  dbuser: mysql
+  serverport: "9090"
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2023-06-11T01:50:26Z"
+  name: app-cm
+  namespace: default
+  resourceVersion: "2900"
+  uid: ff6409a2-3eef-4050-ba1b-45e3fd111f8c
