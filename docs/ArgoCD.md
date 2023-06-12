@@ -1,5 +1,7 @@
 ## ArgoCD Documentation
 
+![Alt text](<./screenshots/0 S_EuF4L77SxNJ2Ja.jpg>)
+
 kubectl create ns argocd
 kubectl apply -n argocd -f <https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml>
 
@@ -15,3 +17,5 @@ time="2023-06-12T04:07:50+03:00" level=info msg="ClusterRoleBinding \"argocd-man
 time="2023-06-12T04:07:55+03:00" level=info msg="Created bearer token secret for ServiceAccount \"argocd-manager\""
 Cluster 'https://172.18.227.155:8443' added
 ```
+
+![Alt text](./screenshots/argo-fail.png)
