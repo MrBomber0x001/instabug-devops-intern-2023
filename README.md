@@ -37,8 +37,9 @@ Image Pushed to Docker Registery ✅ <br/>
 
 **Documentation files**:
 
+* [Bug_Solution](https://github.com/MrBomber0x001/instabug-intern-2023/blob/main/docs/Bug_Solution.md)
 * [Documentation](https://github.com/MrBomber0x001/instabug-intern-2023/blob/main/docs/Documentation.md)
-* [argoCD](https://github.com/MrBomber0x001/instabug-intern-2023/blob/main/docs/argocd.md)
+* [argoCD](https://github.com/MrBomber0x001/instabug-intern-2023/blob/main/docs/ArgoCD.md)
 * [Helm](https://github.com/MrBomber0x001/instabug-intern-2023/blob/main/docs/Helm.md)
 * [Jenkins](https://github.com/MrBomber0x001/instabug-intern-2023/blob/main/docs/jenkins.md)
 
@@ -72,7 +73,7 @@ Image Pushed to Docker Registery ✅ <br/>
     * [x] use credentials as environment variables for security best practices
     * [x] setup build status for Github repo
 
-* [ x Helm
+* [x] Helm
   * [x] Add autoscaling manifest for number of replicas.
 * [x] Add argocd app that points to helm manifests to apply gitops
 concept.

@@ -2,10 +2,14 @@
 
 the helm directory all of the required manifests for the k8s cluster.
 
+```sh
+helm create helm-chart
+```
+
 I've choosed to use a `mysql` chart instead of configuring it myself, to save time for the bonus section as much as I can.
 
 ```sh
-helm install mysql --values ./helm/test-mysql.yml
+helm install mysql --values ./helm-chart/templates/test-mysql.yml
 ```
 
 The `test-mysql.yml` file contains configuration and credentials for mysql to be deployed successfully.

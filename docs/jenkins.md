@@ -1,6 +1,23 @@
 
 ## Jenkins
 
+Pipeline status
+![Alt text](./screenshots/jenkins_status.png)
+
+Jenkins Credentials
+![Alt text](./screenshots/jenkins_creds.png)
+
+Started by setting a webhook for jenkins in the Github repo in order for jenkins to watch the repo for changes and fire up the pipeline
+First issue encountered was that jenkins is installed on local server, to expose the localhost to the public, I had to use `ngrok` and forward connections to the port 8080 on the localhost
+
+```sh
+ngrok http 8080
+```
+
+![Alt text](./screenshots/ngrok.png)
+
+Jenkins script
+
 ```sh
 pipeline {
     agent any
