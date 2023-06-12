@@ -1,5 +1,3 @@
-[![Build Status](https://c897-41-239-147-125.eu.ngrok.io/buildStatus/icon?job=insta-bug)](https://c897-41-239-147-125.eu.ngrok.io/job/insta-bug/)
-
 # Wow Such Program
 
 This program is very simple, it connects to a MySQL database based on the following env vars:
