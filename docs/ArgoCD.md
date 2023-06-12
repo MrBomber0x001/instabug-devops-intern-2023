@@ -2,11 +2,13 @@
 
 ![Alt text](<./screenshots/0 S_EuF4L77SxNJ2Ja.jpg>)
 
+```sh
 kubectl create ns argocd
 kubectl apply -n argocd -f <https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml>
 
 .\argocd-windows-amd64.exe admin initial-password -n argocd
     B8NzmJTQjm7-nRHU
+```
 
 ```sh
  .\argocd-windows-amd64.exe cluster add minikube
@@ -18,4 +20,9 @@ time="2023-06-12T04:07:55+03:00" level=info msg="Created bearer token secret for
 Cluster 'https://172.18.227.155:8443' added
 ```
 
+Here a status in case of failure
 ![Alt text](./screenshots/argo-fail.png)
+
+And Here's when it work 🎉
+
+![Alt text](./screenshots/success.png)

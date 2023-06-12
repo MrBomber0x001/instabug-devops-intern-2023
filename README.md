@@ -18,6 +18,8 @@ And exposes itself on port 9090:
 
 -----
 
+## Architecture
+
 ## Tools used
 
 * `Docker`
