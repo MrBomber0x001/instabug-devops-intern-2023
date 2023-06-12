@@ -36,13 +36,11 @@ spec:
                 configMapKeyRef:
                   key: dbuser
                   name: app-cm
-            - name: SERVER_PORT
+            - name: MYSQL_HOST
               valueFrom:
                 configMapKeyRef:
-                  key: serverport
+                  key: dbhost
                   name: app-cm
-            - name: MYSQL_HOST
-              value: "mysql-primary.default.svc.cluster.local"
             - name: MYSQL_PORT
               valueFrom:
                 configMapKeyRef:
