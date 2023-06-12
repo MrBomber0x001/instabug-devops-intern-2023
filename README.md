@@ -45,6 +45,9 @@ Image Pushed to Docker Registery ✅ <br/>
 
 ## Architecture Overview
 
+Here's an overview of the Architecture
+![](./docs/screenshots/Architecture.png)
+
 ## Tools used
 
 * `Docker`
