@@ -27,7 +27,7 @@ type row struct {
 
 And It worked 🎉
 
-![](./screenshots/Screenshot%202023-06-11%20082139.png)
+![](./screenshots/bug_solution.png)
 
 Another issue (Not a bug) I've encountered was when trying to run `docker compose` that the server is started before the db was actually ready,
 one of the solutions I've thought of was
