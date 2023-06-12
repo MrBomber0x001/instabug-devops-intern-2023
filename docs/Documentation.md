@@ -1,5 +1,14 @@
 # Instabug - Infrastructure internship 2023
 
+This file contains
+
+- Dockerfile and Docker compose documentation
+- Jenkins Pipeline Documentation
+- Native K8s documentation
+- Helm Documentation
+- The bug solution
+- ArgoCD documentation
+
 I've been presented with a Document containing a `lightweight go web server` that should be dockerized and pipelined through Jenkins
 
 First thing I've encoutered was reading the source code and understand it as much as I could to have a context of what I am about to work on.
@@ -9,7 +18,8 @@ Then, I began to dockerize the application by choosing a secure and lightweight 
 ## Docker
 
 ### Dockerfile
-The Dockerfile is based on a `multi-stage build` strategy for better optimization 
+
+The Dockerfile is based on a `multi-stage build` strategy for better optimization
 
 ```sh
 FROM golang:1.20.4-alpine3.16
@@ -170,11 +180,99 @@ And here's the Docker repo after pushing the image
 
 ## Helm
 
-Installing Helm charts
+the helm directory all of the required manifests for the k8s cluster.
 
-## Bonus points
+I've choosed to use a `mysql` chart instead of configuring it myself, to save time for the bonus section as much as I can.
 
-### Security Measures and Analysis
+```sh
+helm install mysql --values ./helm/test-mysql.yml
+```
+
+The `test-mysql.yml` file contains configuration and credentials for mysql to be deployed successfully.
+
+```yml
+architecture: replication
+secondary:
+  replicaCount: 3
+persistence:
+  storageClass: "standard"
+auth:
+  rootPassword:
+  database: "internship"
+  username: "mysql"
+  password: "password"
+```
+
+I've configured mysql to have 1 primary and 3 other replicas for high availability.
+
+Checking the output
+
+```
+kubectl get all
+NAME                    READY   STATUS    RESTARTS   AGE
+pod/mysql-primary-0     1/1     Running   0          4m49s
+pod/mysql-secondary-0   1/1     Running   0          4m49s
+pod/mysql-secondary-1   1/1     Running   0          2m16s
+pod/mysql-secondary-2   1/1     Running   0          94s
+
+NAME                               TYPE        CLUSTER-IP      EXT
+service/kubernetes                 ClusterIP   10.96.0.1       <no
+service/mysql-primary              ClusterIP   10.111.225.41   <no
+service/mysql-primary-headless     ClusterIP   None            <no
+service/mysql-secondary            ClusterIP   10.101.186.36   <no
+service/mysql-secondary-headless   ClusterIP   None            <no
+
+NAME                               READY   AGE
+statefulset.apps/mysql-primary     1/1     4m49s
+statefulset.apps/mysql-secondary   3/3     4m49s
+```
+
+- ✅ StatefulSet configured
+- ✅ PVC configured and SVC are
+
+Now Let's deploy the Go server
+
+- the docker repo has been pushed using Jenkins pipeline, so we're going to use it as our image.
+- Created `configmap.yml` to store all of the necessary configurations
+- Created `secret.yml` to store the required secrets for both mysql and go credentials.
+- Created `deployment.yml` that actually contain the deployment manifest.
+
+checking pods
+
+```
+kubectl get pods
+NAME                     READY   STATUS    RESTARTS   AGE
+go-app-d5584fc47-nrnn8   1/1     Running   0          8s
+mysql-primary-0          1/1     Running   0          26m
+mysql-secondary-0        1/1     Running   0          26m
+mysql-secondary-1        1/1     Running   0          23m
+mysql-secondary-2        1/1     Running   0          23m
+```
+
+exposing the service for testing purposes
+
+```
+$ kubectl expose deployment/go-app --type="NodePort" --port 9090  
+service/go-app exposed
+```
+
+```
+$ kubectl port-forward -n default svc/go-app 9090
+Forwarding from 127.0.0.1:9090 -> 9090
+Forwarding from [::1]:9090 -> 9090
+Handling connection for 9090
+
+```
+
+Testing
+
+```sh
+$ curl -X POST http://localhost:9090/
+OK
+
+```
+
+## Security Measures and Analysis
 
 To achieve a good security practices I've listed most of the security issues that might happens
 
@@ -188,15 +286,3 @@ So in each one of the above issues I've used the suitable security best practice
 - [x] Used lightweight and Almost zero-vulen image in the `Dockerfile`
 - [x] Run Synk CLI test to see if there's container-level security issues
 - [x] Stored credentials properly by storing them as environment variable in `.env` and inside Jenkins itself.
-
-running synk tests to spot any vulenerabilites or potential security issues
-
-### The Bug
-
-I've encountered an issue when trying to run `docker compose` that the server is started before the db was actually ready,
-one of the solutions I've though of was
-
-1. add a timeout to wait for the connection to be ready, although it didn't work very well 😥
-2. to use `wait-for` script, to ensure that the web server won't start unless the db is fully ready! and it did work 🎉
-
-### ArgoCD with Helm
