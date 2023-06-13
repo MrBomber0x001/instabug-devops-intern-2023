@@ -1,12 +1,21 @@
 ## Helm
 
-the helm directory all of the required manifests for the k8s cluster.
+The `helm-chart` contains all of the required manifests for the k8s cluster.
 
 ```sh
 helm create helm-chart
 ```
 
 I've choosed to use a `mysql` chart instead of configuring it myself, to save time for the bonus section as much as I can.
+
+However I've boilerplated Another architecture from scratch in `k8s` folder which uses
+
+- two different namespaces
+- secrets, configmaps and persistent volumes for each namespace
+
+And follows this architecture
+
+![](./screenshots/k8s.png)
 
 ```sh
 helm install mysql --values ./helm-chart/templates/test-mysql.yml
