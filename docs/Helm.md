@@ -60,8 +60,12 @@ statefulset.apps/mysql-primary     1/1     4m49s
 statefulset.apps/mysql-secondary   3/3     4m49s
 ```
 
+PVCs ✅
+
+![Alt](./screenshots/pvc.png)
+
 - ✅ StatefulSet configured
-- ✅ PVC configured and SVC are
+- ✅ PVC and SVC configured
 
 Now Let's deploy the Go server
 
